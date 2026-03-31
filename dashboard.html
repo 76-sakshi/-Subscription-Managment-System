@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - SubManager</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <header class="header dashboard-header">
+            <div class="logo">
+                <i class="fas fa-credit-card"></i>
+                <h1>SubManager</h1>
+            </div>
+            <div class="user-menu">
+                <span id="userEmail"></span>
+                <a href="settings.html" class="btn btn-outline"><i class="fas fa-cog"></i></a>
+                <button onclick="logout()" class="btn btn-danger"><i class="fas fa-sign-out-alt"></i></button>
+            </div>
+        </header>
+
+        <main class="dashboard">
+            <!-- Stats Cards -->
+            <div class="stats-grid">
+                <div class="stat-card active">
+                    <i class="fas fa-check-circle"></i>
+                    <div>
+                        <h3 id="activeCount">0</h3>
+                        <p>Active Subscriptions</p>
+                    </div>
+                </div>
+                <div class="stat-card expired">
+                    <i class="fas fa-exclamation-triangle"></i>
+                    <div>
+                        <h3 id="expiredCount">0</h3>
+                        <p>Expired Subscriptions</p>
+                    </div>
+                </div>
+                <div class="stat-card total">
+                    <i class="fas fa-dollar-sign"></i>
+                    <div>
+                        <h3 id="totalMonthly">$0.00</h3>
+                        <p>Monthly Total</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Controls -->
+            <div class="dashboard-controls">
+                <div class="search-filter">
+                    <div class="search-box">
+                        <i class="fas fa-search"></i>
+                        <input type="text" id="searchInput" placeholder="Search subscriptions...">
+                    </div>
+                    <select id="statusFilter">
+                        <option value="">All Status</option>
+                        <option value="Active">Active</option>
+                        <option value="Expired">Expired</option>
+                    </select>
+                    <button onclick="addNewSubscription()" class="btn btn-primary">
+                        <i class="fas fa-plus"></i> Add Subscription
+                    </button>
+                </div>
+            </div>
+
+            <!-- Subscriptions Table -->
+            <div class="table-container">
+                <table id="subscriptionsTable">
+                    <thead>
+                        <tr>
+                            <th>Service</th>
+                            <th>Amount</th>
+                            <th>Billing Date</th>
+                            <th>Status</th>
+                            <th>Days Until</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="subscriptionsBody">
+                    </tbody>
+                </table>
+            </div>
+        </main>
+    </div>
+
+    <!-- Add/Edit Modal -->
+    <div id="subscriptionModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 id="modalTitle">Add Subscription</h2>
+                <span class="close" onclick="closeModal()">&times;</span>
+            </div>
+            <form id="subscriptionForm">
+                <input type="hidden" id="subscriptionId">
+                <div class="form-group">
+                    <label>Service Name</label>
+                    <input type="text" id="serviceName" required>
+                </div>
+                <div class="form-group">
+                    <label>Amount ($)</label>
+                    <input type="number" id="amount" step="0.01" required>
+                </div>
+                <div class="form-group">
+                    <label>Billing Date</label>
+                    <input type="date" id="billingDate" required>
+                </div>
+                <div class="form-group">
+                    <label>Status</label>
+                    <select id="status" required>
+                        <option value="Active">Active</option>
+                        <option value="Expired">Expired</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Notes</label>
+                    <textarea id="notes"></textarea>
+                </div>
+                <div class="modal-actions">
+                    <button type="button" class="btn btn-outline" onclick="closeModal()">Cancel</button>
+                    <button type="submit" class="btn btn-primary">Save</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script src="js/dashboard.js"></script>
+</body>
+</html>
